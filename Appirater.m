@@ -635,7 +635,7 @@ static BOOL _alwaysUseMainBundle = NO;
     [userDefaults synchronize];
     
     
-    if #available(iOS 10.3, *) {
+    if ([SKStoreReviewController class]) {
         [SKStoreReviewController requestReview];
     }
     else
