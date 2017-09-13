@@ -288,11 +288,7 @@ static BOOL _alwaysUseMainBundle = NO;
         return;
     }
     
-    if #available(iOS 10.3, *) {
-        [SKStoreReviewController requestReview];
-    }
-    else
-    {
+    
         if (displayRateLaterButton) {
             alertView = [[UIAlertView alloc] initWithTitle:self.alertTitle
                                                    message:self.alertMessage
@@ -312,7 +308,7 @@ static BOOL _alwaysUseMainBundle = NO;
         if (delegate && [delegate respondsToSelector:@selector(appiraterDidDisplayAlert:)]) {
             [delegate appiraterDidDisplayAlert:self];
         }
-    }
+   
 }
 
 - (void)showRatingAlert
@@ -638,6 +634,13 @@ static BOOL _alwaysUseMainBundle = NO;
     [userDefaults setBool:YES forKey:kAppiraterRatedCurrentVersion];
     [userDefaults synchronize];
     
+    
+    if #available(iOS 10.3, *) {
+        [SKStoreReviewController requestReview];
+    }
+    else
+    {
+     
     //Use the in-app StoreKit view if available (iOS 6) and imported. This works in the simulator.
     if (![Appirater sharedInstance].openInAppStore && NSStringFromClass([SKStoreProductViewController class]) != nil) {
         
@@ -675,6 +678,7 @@ static BOOL _alwaysUseMainBundle = NO;
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:reviewURL]];
 #endif
+    }
     }
 }
 
